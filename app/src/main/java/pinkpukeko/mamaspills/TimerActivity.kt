@@ -45,10 +45,10 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 0
+    private var timerLengthSeconds: Long = 5
     private var timerState = TimerState.Stopped
 
-    private var secondsRemaining: Long = 0
+    private var secondsRemaining: Long = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,8 +159,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     private fun setNewTimerLength(){
-        val lengthInMinutes = PrefUtil.getTimerLength(this)
-        timerLengthSeconds = (10L)
+        timerLengthSeconds = PrefUtil.getTimerLength(this)
         progress_countdown.max = timerLengthSeconds.toInt()
     }
 

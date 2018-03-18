@@ -7,12 +7,12 @@ import pinkpukeko.mamaspills.TimerActivity
 class PrefUtil {
     companion object {
 
-        fun getTimerLength(context: Context): Int{
-            //placeholder
-            return 1/6
+        // in seconds
+        fun getTimerLength(context: Context): Long{
+            return 5
         }
 
-        private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "com.resocoder.timer.previous_timer_length_seconds"
+        private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "pinkpukeko.mamaspills.previous_timer_length_seconds"
 
         fun getPreviousTimerLengthSeconds(context: Context): Long{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -26,7 +26,7 @@ class PrefUtil {
         }
 
 
-        private const val TIMER_STATE_ID = "com.resocoder.timer.timer_state"
+        private const val TIMER_STATE_ID = "pinkpukeko.mamaspills.timer_state"
 
         fun getTimerState(context: Context): TimerActivity.TimerState{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -42,7 +42,7 @@ class PrefUtil {
         }
 
 
-        private const val SECONDS_REMAINING_ID = "com.resocoder.timer.seconds_remaining"
+        private const val SECONDS_REMAINING_ID = "pinkpukeko.mamaspills.seconds_remaining"
 
         fun getSecondsRemaining(context: Context): Long{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -56,7 +56,7 @@ class PrefUtil {
         }
 
 
-        private const val ALARM_SET_TIME_ID = "com.resocoder.timer.backgrounded_time"
+        private const val ALARM_SET_TIME_ID = "pinkpukeko.mamaspills.backgrounded_time"
 
         fun getAlarmSetTime(context: Context): Long{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
@@ -66,6 +66,19 @@ class PrefUtil {
         fun setAlarmSetTime(time: Long, context: Context){
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             editor.putLong(ALARM_SET_TIME_ID, time)
+            editor.apply()
+        }
+
+        private const val ALARM_REMAINING_COUNT_ID = "pinkpukeko.mamaspills.count_remaining"
+
+        fun getRemainingCount(context: Context): Int{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getInt(ALARM_REMAINING_COUNT_ID, 4)
+        }
+
+        fun setRemainingCount(count: Int, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putInt(ALARM_REMAINING_COUNT_ID, count)
             editor.apply()
         }
     }
