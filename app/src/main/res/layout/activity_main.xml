@@ -14,8 +14,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_dark"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -24,34 +24,18 @@
         android:id="@+id/include"
         layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_stop"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/start"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:checked="false"
+        android:text="@string/start"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="left|bottom"
-        app:srcCompat="@drawable/ic_stop" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="bottom|center"
-        app:srcCompat="@drawable/ic_pause" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="right|bottom"
+        app:layout_anchorGravity="bottom"
         app:srcCompat="@drawable/ic_play" />
 
 </android.support.design.widget.CoordinatorLayout>
