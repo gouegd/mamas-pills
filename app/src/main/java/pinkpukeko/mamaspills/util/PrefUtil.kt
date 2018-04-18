@@ -9,7 +9,7 @@ class PrefUtil {
 
         // in seconds
         fun getTimerLength(context: Context): Long{
-            return 5
+            return 10
         }
 
         private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "pinkpukeko.mamaspills.previous_timer_length_seconds"
@@ -24,7 +24,6 @@ class PrefUtil {
             editor.putLong(PREVIOUS_TIMER_LENGTH_SECONDS_ID, seconds)
             editor.apply()
         }
-
 
         private const val TIMER_STATE_ID = "pinkpukeko.mamaspills.timer_state"
 

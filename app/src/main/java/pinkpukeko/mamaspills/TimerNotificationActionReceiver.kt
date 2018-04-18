@@ -16,7 +16,7 @@ class TimerNotificationActionReceiver : BroadcastReceiver() {
                 NotificationUtil.hideTimerNotification(context)
             }
             AppConstants.ACTION_START -> {
-                val secondsRemaining = PrefUtil.getTimerLength()
+                val secondsRemaining = PrefUtil.getTimerLength(context)
                 val wakeUpTime = TimerActivity.setAlarm(context, TimerActivity.nowSeconds, secondsRemaining)
                 PrefUtil.setTimerState(TimerActivity.TimerState.Running, context)
                 PrefUtil.setSecondsRemaining(secondsRemaining, context)

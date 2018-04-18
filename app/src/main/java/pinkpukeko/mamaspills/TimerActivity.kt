@@ -41,7 +41,7 @@ class TimerActivity : AppCompatActivity() {
     }
 
     enum class TimerState{
-        Stopped, Paused, Running
+        Stopped, Running
     }
 
     private lateinit var timer: CountDownTimer
@@ -57,22 +57,16 @@ class TimerActivity : AppCompatActivity() {
         supportActionBar?.setIcon(R.drawable.ic_timer)
         supportActionBar?.title = "      Timer"
 
-        fab_play.setOnClickListener{v ->
+        start.setOnClickListener{ _ ->
             startTimer()
-            timerState =  TimerState.Running
+            timerState = TimerState.Running
             updateButtons()
         }
 
-        fab_pause.setOnClickListener { v ->
-            timer.cancel()
-            timerState = TimerState.Paused
-            updateButtons()
-        }
-
-        fab_stop.setOnClickListener { v ->
-            timer.cancel()
-            onTimerFinished()
-        }
+//        fab_stop.setOnClickListener { _ ->
+//            timer.cancel()
+//            onTimerFinished()
+//        }
     }
 
     override fun onResume() {
@@ -92,9 +86,6 @@ class TimerActivity : AppCompatActivity() {
             val wakeUpTime = setAlarm(this, nowSeconds, secondsRemaining)
             NotificationUtil.showTimerRunning(this, wakeUpTime)
         }
-        else if (timerState == TimerState.Paused){
-            NotificationUtil.showTimerPaused(this)
-        }
 
         PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, this)
         PrefUtil.setSecondsRemaining(secondsRemaining, this)
@@ -111,7 +102,7 @@ class TimerActivity : AppCompatActivity() {
         else
             setPreviousTimerLength()
 
-        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
+        secondsRemaining = if (timerState == TimerState.Running)
             PrefUtil.getSecondsRemaining(this)
         else
             timerLengthSeconds
@@ -179,19 +170,10 @@ class TimerActivity : AppCompatActivity() {
     private fun updateButtons(){
         when (timerState) {
             TimerState.Running ->{
-                fab_play.isEnabled = false
-                fab_pause.isEnabled = true
-                fab_stop.isEnabled = true
+                start.isEnabled = false
             }
             TimerState.Stopped -> {
-                fab_play.isEnabled = true
-                fab_pause.isEnabled = false
-                fab_stop.isEnabled = false
-            }
-            TimerState.Paused -> {
-                fab_play.isEnabled = true
-                fab_pause.isEnabled = false
-                fab_stop.isEnabled = true
+                start.isEnabled = true
             }
         }
     }
