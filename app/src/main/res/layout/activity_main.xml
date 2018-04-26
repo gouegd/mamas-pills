@@ -6,23 +6,25 @@
     android:layout_height="match_parent"
     tools:context="pinkpukeko.mamaspills.TimerActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@android:color/holo_blue_dark"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="pinkpukeko.mamaspills.TimerFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_dark"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main" />
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/start"
@@ -36,7 +38,7 @@
         android:checked="false"
         android:text="@string/start"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
-        app:layout_anchor="@+id/include"
+        app:layout_anchor="@+id/fragment_main"
         app:layout_anchorGravity="bottom"
         app:srcCompat="@drawable/ic_play" />
 

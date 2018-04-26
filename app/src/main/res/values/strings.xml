@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="stop">Stop</string>
     <string name="start">Start</string>
+    <plurals name="numberOfTimesRemaining">
+        <item quantity="one">%d time</item>
+        <item quantity="other">%d times</item>
+    </plurals>
 </resources>

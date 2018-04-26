@@ -12,6 +12,10 @@ class PrefUtil {
             return 10
         }
 
+        fun getTotalAlarmCount(): Int{
+            return 4
+        }
+
         private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "pinkpukeko.mamaspills.previous_timer_length_seconds"
 
         fun getPreviousTimerLengthSeconds(context: Context): Long{
@@ -39,7 +43,6 @@ class PrefUtil {
             editor.putInt(TIMER_STATE_ID, ordinal)
             editor.apply()
         }
-
 
         private const val SECONDS_REMAINING_ID = "pinkpukeko.mamaspills.seconds_remaining"
 
