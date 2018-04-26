@@ -8,19 +8,20 @@ import pinkpukeko.mamaspills.util.PrefUtil
 
 class TimerNotificationActionReceiver : BroadcastReceiver() {
 
+    // not relevant any more if I don't re-add actions on notifications
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action){
             AppConstants.ACTION_STOP -> {
-                TimerActivity.removeAlarm(context)
-                PrefUtil.setTimerState(TimerActivity.TimerState.Stopped, context)
-                NotificationUtil.hideTimerNotification(context)
+//                TimerActivity.removeAlarm(context)
+//                PrefUtil.setTimerState(TimerActivity.TimerState.Stopped, context)
+//                NotificationUtil.hideTimerNotification(context)
             }
             AppConstants.ACTION_START -> {
-                val secondsRemaining = PrefUtil.getTimerLength(context)
-                val wakeUpTime = TimerActivity.setAlarm(context, TimerActivity.nowSeconds, secondsRemaining)
-                PrefUtil.setTimerState(TimerActivity.TimerState.Running, context)
-                PrefUtil.setSecondsRemaining(secondsRemaining, context)
-                NotificationUtil.showTimerRunning(context, wakeUpTime)
+//                val secondsRemaining = PrefUtil.getTimerLength(context)
+//                val wakeUpTime = TimerActivity.setAlarm(context, TimerActivity.nowSeconds, secondsRemaining)
+//                PrefUtil.setTimerState(TimerActivity.TimerState.Running, context)
+//                PrefUtil.setSecondsRemaining(secondsRemaining, context)
+//                NotificationUtil.showTimerRunning(context, wakeUpTime)
             }
         }
     }

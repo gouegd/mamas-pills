@@ -9,17 +9,17 @@ import pinkpukeko.mamaspills.util.PrefUtil
 class TimerExpiredReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        NotificationUtil.showTimerExpired(context)
-
         val remaining = PrefUtil.getRemainingCount(context) - 1
         PrefUtil.setRemainingCount(remaining, context)
 
-        if (remaining == 0) {
+        NotificationUtil.showTimerExpired(context)
+
+        if (remaining < 1) {
             PrefUtil.setTimerState(TimerActivity.TimerState.Stopped, context)
             PrefUtil.setAlarmSetTime(0, context)
         } else {
             val timerLength= PrefUtil.getTimerLength(context)
-            TimerActivity.setAlarm(context, TimerActivity.nowSeconds, timerLength.toLong())
+            TimerActivity.setAlarm(context, TimerActivity.nowSeconds, timerLength)
         }
     }
 }
