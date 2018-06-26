@@ -3,6 +3,10 @@
     <string name="action_settings">Settings</string>
     <string name="stop">Stop</string>
     <string name="start">Start</string>
+    <string name="pillTaken">I took a pill</string>
+    <string name="earlyPill">I took a pill early</string>
+    <string name="clear">Clear</string>
+    <string name="pillTakenTime">Pill %d taken at %s</string>
     <plurals name="numberOfTimesRemaining">
         <item quantity="one">%d time</item>
         <item quantity="other">%d times</item>

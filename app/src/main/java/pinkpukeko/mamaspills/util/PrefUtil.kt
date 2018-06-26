@@ -29,6 +29,22 @@ class PrefUtil {
             editor.apply()
         }
 
+        private const val PILLSTAKEN_STATE_ID = "pinkpukeko.mamaspills.pills_taken"
+
+        fun getPillsTaken(context: Context): List<Long> {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val pills = preferences.getString(PILLSTAKEN_STATE_ID, "")
+            val oneDayAgo = TimerActivity.nowSeconds - 24 * 60 * 60
+            // keep only events of less than a day ago
+            return pills.split(",").filter{ t -> t.isNotBlank() }.map { t -> t.toLong() }.filter{ t -> t > oneDayAgo }
+        }
+
+        fun setPillsTaken(pillsTaken: MutableList<Long>, context: Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putString(PILLSTAKEN_STATE_ID, pillsTaken.joinToString(","))
+            editor.apply()
+        }
+
         private const val TIMER_STATE_ID = "pinkpukeko.mamaspills.timer_state"
 
         fun getTimerState(context: Context): TimerActivity.TimerState{
