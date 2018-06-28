@@ -14,10 +14,15 @@ import java.util.*
 
 class NotificationUtil {
     companion object {
-        private const val CHANNEL_ID_TIMER_ON = "timer_on"
-        private const val CHANNEL_ID_TIMER_TRIGGERED = "timer_triggered"
-        private const val TIMER_ON_ID = 0
-        private const val TIMER_TRIGGERED_ID = 1
+        private const val CHANNEL_ID = "puke?ko!"
+        private const val NOTIFICATION_ID = 0
+
+        private val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+
+        private fun getNotificationManager(context: Context) : NotificationManager {
+            return context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        }
+
 
         fun showTimerExpired(context: Context){
 //            val startIntent = Intent(context, TimerNotificationActionReceiver::class.java)
@@ -27,15 +32,15 @@ class NotificationUtil {
 
             val remaining = PrefUtil.getRemainingCount(context)
 
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER_TRIGGERED, true)
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, true)
             nBuilder.setContentTitle("Time for a pill ! $remaining more after this one")
                     .setContentIntent(getPendingIntentWithStack(context, TimerActivity::class.java))
 //                    .addAction(R.drawable.ic_play, "Start", startPendingIntent)
 
-            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val nManager = getNotificationManager(context)
 //            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
 
-            nManager.notify(TIMER_TRIGGERED_ID, nBuilder.build())
+            nManager.notify(NOTIFICATION_ID , nBuilder.build())
         }
 
         fun showTimerRunning(context: Context, wakeUpTime: Long){
@@ -47,31 +52,29 @@ class NotificationUtil {
             val df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
             val pillCount = 1 + PrefUtil.getTotalAlarmCount() - PrefUtil.getRemainingCount(context)
 
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER_ON, false)
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, false)
             nBuilder.setContentTitle("Next pill alarm at ${df.format(Date(wakeUpTime))}")
                     .setContentText("This will be the pill number $pillCount today")
                     .setContentIntent(getPendingIntentWithStack(context, TimerActivity::class.java))
                     .setOngoing(true)
 //                    .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)
 
-            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val nManager = getNotificationManager(context)
 
-            nManager.notify(TIMER_ON_ID, nBuilder.build())
+            nManager.notify(NOTIFICATION_ID , nBuilder.build())
         }
 
         fun hideTimerNotification(context: Context){
-            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.cancel(TIMER_TRIGGERED_ID)
+            val nManager = getNotificationManager(context)
+            nManager.cancel(NOTIFICATION_ID )
         }
 
         private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
                 : NotificationCompat.Builder{
-            val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             val nBuilder = NotificationCompat.Builder(context, channelId)
                     .setStyle(MediaStyle())
                     .setSmallIcon(R.drawable.ic_timer)
-                    .setAutoCancel(true)
-                    .setDefaults(0)
+                    .setDefaults(Notification.DEFAULT_ALL)
 
             if (playSound) nBuilder.setSound(notificationSound)
             return nBuilder
