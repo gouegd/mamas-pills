@@ -30,11 +30,11 @@ class NotificationUtil {
 //            val startPendingIntent = PendingIntent.getBroadcast(context,
 //                    0, startIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-            val remaining = PrefUtil.getRemainingCount(context)
-
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, true)
-            nBuilder.setContentTitle("Time for a pill ! $remaining more after this one")
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID)
+            nBuilder.setContentTitle("It's time for a pill")
+                    .setContentText("Let me know when you take it !")
                     .setContentIntent(getPendingIntentWithStack(context, TimerActivity::class.java))
+                    .setOngoing(true)
 //                    .addAction(R.drawable.ic_play, "Start", startPendingIntent)
 
             val nManager = getNotificationManager(context)
@@ -50,11 +50,10 @@ class NotificationUtil {
 //                    0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
-            val pillCount = 1 + PrefUtil.getTotalAlarmCount() - PrefUtil.getRemainingCount(context)
 
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, false)
+            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, 0)
             nBuilder.setContentTitle("Next pill alarm at ${df.format(Date(wakeUpTime))}")
-                    .setContentText("This will be the pill number $pillCount today")
+                    .setContentText("Let me know if you take earlier :)")
                     .setContentIntent(getPendingIntentWithStack(context, TimerActivity::class.java))
                     .setOngoing(true)
 //                    .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)
@@ -66,23 +65,24 @@ class NotificationUtil {
 
         fun hideTimerNotification(context: Context){
             val nManager = getNotificationManager(context)
-            nManager.cancel(NOTIFICATION_ID )
+            nManager.cancel(NOTIFICATION_ID)
         }
 
-        private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
+        private fun getBasicNotificationBuilder(context: Context, channelId: String, defaults: Int = Notification.DEFAULT_ALL)
                 : NotificationCompat.Builder{
             val nBuilder = NotificationCompat.Builder(context, channelId)
                     .setStyle(MediaStyle())
                     .setSmallIcon(R.drawable.ic_timer)
-                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setDefaults(defaults)
+                    .setAutoCancel(false)
 
-            if (playSound) nBuilder.setSound(notificationSound)
+//            if (playSound) nBuilder.setSound(notificationSound)
             return nBuilder
         }
 
         private fun <T> getPendingIntentWithStack(context: Context, javaClass: Class<T>): PendingIntent{
             val resultIntent = Intent(context, javaClass)
-            resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            resultIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
 
             val stackBuilder = TaskStackBuilder.create(context)
             stackBuilder.addParentStack(javaClass)
