@@ -19,7 +19,6 @@ class TimerActivity : AppCompatActivity() {
         val nowSeconds: Long
             get() = Calendar.getInstance().timeInMillis / 1000
 
-        const val PILLS_PER_DAY = 4
         const val ALARM_ACTION = "pinkpukeko.mamaspills.ALARM"
 
     }
@@ -30,16 +29,16 @@ class TimerActivity : AppCompatActivity() {
 
     private val broadCastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-
             NotificationUtil.showTimerExpired(context)
 
             timerState = TimerState.Stopped
             rerender()
 
-//            when (intent?.action) {
-//                BROADCAST_DEFAULT_ALBUM_CHANGED -> handleAlbumChanged()
-//                BROADCAST_CHANGE_TYPE_CHANGED -> handleChangeTypeChanged()
-//            }
+            // put the RingingActivity on the screen
+            val intent = Intent(context, RingingActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+
         }
     }
 
@@ -70,7 +69,7 @@ class TimerActivity : AppCompatActivity() {
     private val preferences: SharedPreferences get() = PreferenceManager.getDefaultSharedPreferences(this)
     private var pillsTaken: PillsTaken? = null
 
-    private val secondsRemaining: Long = 10
+    private val secondsRemaining: Long = 5 // 5 sec
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,18 +96,18 @@ class TimerActivity : AppCompatActivity() {
             // record pill
             pillsTaken?.add(TimerActivity.nowSeconds)
             // replace or cancel ongoing timer
-            if (pillsTaken?.size ?: 0 < PILLS_PER_DAY) {
+//            if (pillsTaken?.size ?: 0 < MAX_PILLS_PER_DAY) {
                 // start new timer for next alarm
                 setAlarm(this, secondsRemaining)
-            } else {
-                removeAlarm(this)
-            }
+//            } else {
+//                removeAlarm(this)
+//            }
             // change UI
             rerender()
         }
 
         buttonPillClear.setOnClickListener { _ ->
-            // record pill
+            // clear the pills record
             pillsTaken?.clear()
             // stop any ongoing timer
             removeAlarm(this)
@@ -152,21 +151,27 @@ class TimerActivity : AppCompatActivity() {
             // 2.a alarm ongoing ? show 'take early'
             timerState == TimerState.Running -> {
                 buttonEarlyPill.visibility = View.VISIBLE
-                buttonPillTaken.visibility = View.INVISIBLE
-                buttonPillClear.visibility = View.INVISIBLE
+                buttonPillTaken.visibility = View.GONE
+//                buttonPillClear.visibility = View.INVISIBLE
             }
             // 2.b or enough pills taken ? show 'clear'
-            pillsTaken?.size  ?: 0 >= PILLS_PER_DAY -> {
-                buttonEarlyPill.visibility = View.INVISIBLE
-                buttonPillTaken.visibility = View.INVISIBLE
-                buttonPillClear.visibility = View.VISIBLE
-            }
+//            pillsTaken?.size ?: 0 >= MAX_PILLS_PER_DAY -> {
+//                buttonEarlyPill.visibility = View.INVISIBLE
+//                buttonPillTaken.visibility = View.INVISIBLE
+////                buttonPillClear.visibility = View.VISIBLE
+//            }
             // 2.c otherwise show 'take Nth pill'
             else -> {
-                buttonEarlyPill.visibility = View.INVISIBLE
+                buttonEarlyPill.visibility = View.GONE
                 buttonPillTaken.visibility = View.VISIBLE
-                buttonPillClear.visibility = View.INVISIBLE
+//                buttonPillClear.visibility = View.INVISIBLE
             }
+        }
+
+        if (pillsTaken?.size ?: 0 > 0) {
+            buttonPillClear.visibility = View.VISIBLE
+        } else {
+            buttonPillClear.visibility = View.GONE
         }
     }
 

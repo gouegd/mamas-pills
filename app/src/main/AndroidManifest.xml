@@ -18,20 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--<receiver-->
-            <!--android:name=".TimerExpiredReceiver"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="false" />-->
-        <receiver
-            android:name=".TimerNotificationActionReceiver"
-            android:enabled="true"
-            android:exported="false">
+        <activity
+            android:name=".RingingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="stop"/>
-                <action android:name="start" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </receiver>
+        </activity>
     </application>
 
 </manifest>

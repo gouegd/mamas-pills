@@ -11,8 +11,9 @@ class PrefUtil {
         fun getPillsTaken(preferences: SharedPreferences): List<Long> {
             val pills = preferences.getString(PILLSTAKEN_STATE_ID, "")
             val oneDayAgo = TimerActivity.nowSeconds - 24 * 60 * 60
+            return pills.split(",").filter{ t -> t.isNotBlank() }.map { t -> t.toLong() }
             // keep only events of less than a day ago
-            return pills.split(",").filter{ t -> t.isNotBlank() }.map { t -> t.toLong() }.filter{ t -> t > oneDayAgo }
+                    //.filter{ t -> t > oneDayAgo }
         }
 
         fun setPillsTaken(pillsTaken: MutableList<Long>, preferences: SharedPreferences) {

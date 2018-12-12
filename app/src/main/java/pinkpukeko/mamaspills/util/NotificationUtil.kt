@@ -53,7 +53,7 @@ class NotificationUtil {
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID, 0)
             nBuilder.setContentTitle("Next pill alarm at ${df.format(Date(wakeUpTime))}")
-                    .setContentText("Let me know if you take earlier :)")
+                    .setContentText("Let me know if you take it earlier :)")
                     .setContentIntent(getPendingIntentWithStack(context, TimerActivity::class.java))
                     .setOngoing(true)
 //                    .addAction(R.drawable.ic_stop, "Stop", stopPendingIntent)

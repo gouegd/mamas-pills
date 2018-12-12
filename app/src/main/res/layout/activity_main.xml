@@ -1,10 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pinkpukeko.mamaspills.TimerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pillsTakenTextArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:paddingBottom="32dp"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/buttonPillTaken"
+            style="@android:style/Widget.Material.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/pillTaken"
+            android:textAppearance="@android:style/TextAppearance.Material.Inverse" />
+
+        <Button
+            android:id="@+id/buttonEarlyPill"
+            style="@android:style/Widget.Material.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorAccent"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:text="@string/earlyPill"
+            android:textAppearance="@android:style/TextAppearance.Material.Inverse" />
+
+        <Button
+            android:id="@+id/buttonPillClear"
+            style="@android:style/Widget.Material.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/holo_red_light"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:text="@string/clear"
+            android:textAppearance="@android:style/TextAppearance.Material.Inverse" />
+
+
+    </LinearLayout>
 
     <!--<android.support.design.widget.AppBarLayout-->
         <!--android:layout_width="match_parent"-->
@@ -20,11 +81,11 @@
 
     <!--</android.support.design.widget.AppBarLayout>-->
 
-    <fragment
-        android:id="@+id/fragment_main"
-        android:name="pinkpukeko.mamaspills.TimerFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<fragment-->
+        <!--android:id="@+id/fragment_main"-->
+        <!--android:name="pinkpukeko.mamaspills.TimerFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
     <!--<fragment-->
         <!--android:id="@+id/fragment_ongoing"-->
@@ -33,65 +94,6 @@
         <!--android:layout_height="wrap_content"-->
         <!--app:layout_anchor="@id/fragment_main"-->
         <!--app:layout_anchorGravity="bottom|center_horizontal" />-->
-
-    <Button
-        android:id="@+id/buttonPillTaken"
-        style="@android:style/Widget.Material.Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/pillTaken"
-        android:textAppearance="@android:style/TextAppearance.Material.Inverse"
-        app:layout_anchor="@id/fragment_main"
-        app:layout_anchorGravity="bottom|center_horizontal" />
-
-    <Button
-        android:id="@+id/buttonEarlyPill"
-        style="@android:style/Widget.Material.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/colorAccent"
-        android:paddingLeft="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin"
-        android:text="@string/earlyPill"
-        android:textAppearance="@android:style/TextAppearance.Material.Inverse"
-        app:layout_anchor="@id/fragment_main"
-        app:layout_anchorGravity="bottom|center_horizontal" />
-
-    <Button
-        android:id="@+id/buttonPillClear"
-        style="@android:style/Widget.Material.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/holo_red_light"
-        android:paddingLeft="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin"
-        android:text="@string/clear"
-        android:textAppearance="@android:style/TextAppearance.Material.Inverse"
-        app:layout_anchor="@id/fragment_main"
-        app:layout_anchorGravity="bottom|center_horizontal" />
-
-    <TextView
-        android:id="@+id/pillsTakenTextArea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="32dp"
-        android:text="TextView"
-        app:layout_anchor="@id/fragment_main"
-        app:layout_anchorGravity="center" />
 
 
 </android.support.design.widget.CoordinatorLayout>

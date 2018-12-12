@@ -3,10 +3,11 @@
     <string name="action_settings">Settings</string>
     <string name="stop">Stop</string>
     <string name="start">Start</string>
-    <string name="pillTaken">I took a pill</string>
-    <string name="earlyPill">I took a pill early</string>
-    <string name="clear">Clear</string>
+    <string name="pillTaken">Take a pill now</string>
+    <string name="earlyPill">Take a pill now, before the alarm</string>
+    <string name="clear">Stop all pill alarms, clear the record</string>
     <string name="pillTakenTime">Pill %d taken at %s</string>
+    <string name="pillTimeText">It\'s time for a pill !</string>
     <plurals name="numberOfTimesRemaining">
         <item quantity="one">%d time</item>
         <item quantity="other">%d times</item>
